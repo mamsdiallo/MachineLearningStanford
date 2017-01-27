@@ -9,4 +9,21 @@ import pandas as pd
 #for numerical computaions we can use numpy library
 import numpy as np
 
-print "Running warmUpExercise"
+# warmup import 
+#from WarmupExercise.py import warmUpExercise
+def warmUpExercise():
+    A = np.identity(3)
+    return A
+
+print warmUpExercise()
+
+print "\n Plotting Data ...\n"
+
+# This creates a matrix.
+mat = np.loadtxt("ex1data1.txt", delimiter=",")
+x = mat[:,0]
+
+# number of training examples
+m = len(mat)
+o = np.ones((m,1))
+#X = np.concatenate(o,x)

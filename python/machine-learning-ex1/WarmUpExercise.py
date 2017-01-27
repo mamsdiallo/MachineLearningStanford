@@ -4,7 +4,7 @@
 # function A = warmUpExercise()
 
 #for numerical computaions we can use numpy library
-import numpy as np
+#import numpy as np
 
 def warmUpExercise():
     A = np.identity(3)
