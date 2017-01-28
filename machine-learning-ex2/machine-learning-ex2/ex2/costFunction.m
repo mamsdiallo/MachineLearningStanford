@@ -20,13 +20,17 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
-
-
-
-
-
-
-
+for i = 1:m 
+    zix = theta'*X(i,:)';
+    hix = sigmoid(zix);
+    costi = y(i)*log(hix)+(1-y(i))*log(1-hix);
+    gradi = (hix - y(i))*X(i,:);    
+    J = J + costi;
+    grad = grad + gradi';
+end
+J = -J/m;
+grad = grad./m;
+    
 % =============================================================
 
 end
