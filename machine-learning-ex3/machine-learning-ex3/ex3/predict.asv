@@ -25,13 +25,13 @@ p = zeros(size(X, 1), 1);
 % size X: m x n + 1
 X = [ones(m, 1) X];
 Z1 = X*Theta1';
-actLayer2 = sigmoid(Z1); % Layer 2. size: m x n
+actLayer2 = sigmoid(Z1); % Layer 2. size: m x num_labels
 
 % size Theta2: num_labels x m
-act2 = [ones(m, 1) actLayer2];
-Z2 = act2*Theta2';
+act2 = 
+Z2 = actLayer2*Theta2';
 h = sigmoid(Z2);
-[prob,p] = max(h,[],2);
+[prob,p] = max(h,[],1);
 p = p(:);
 
 % =========================================================================

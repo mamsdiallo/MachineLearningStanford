@@ -30,12 +30,13 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
-
-
-
-
+% size of all_theta num_labels x (n + 1), where n = size(X, 2);
+% size of X: m x n+1, where n = size(X, 2);
+% all_theta*X' dimension is num_labels x m
+% row i 
+hi = all_theta*X';
+[prob,p] = max(hi,[],1);
+p = p(:);
 % =========================================================================
 
 
