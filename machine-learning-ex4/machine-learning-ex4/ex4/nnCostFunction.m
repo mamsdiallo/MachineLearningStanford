@@ -93,18 +93,24 @@ for i=1:m
     J = J+tmp;%sum(tmp);%  + lambda*(sum(temp.*temp))/(2*m);
 end
 % Theta1: sum of squared elements
-temp = Theta1; 
-temp(1) = 0;   % because we don't add anything for j = 0
-Theta1sqr = temp.*temp;
-Theta1sqr = Theta1sqr(:);
-Jreg1 = sum(Theta1sqr);
-% Theta1: sum of squared elements
-temp = Theta2; 
-temp(1) = 0;   % because we don't add anything for j = 0
-Theta2sqr = tmp.*tmp;
-Theta2sqr = Theta2sqr(:);
-Jreg2 = sum(Theta2sqr);
-Jreg = Jreg1+Jreg2;
+n1 = size(Theta1,1);
+n2 = size(Theta1,2);
+temp = 0;
+for i=1:n1
+    for j=2:n2
+        temp = temp + Theta1(i,j)*Theta1(i,j);
+    end
+end
+
+%temp(1) = 0;   % because we don't add anything for j = 0
+n1 = size(Theta2,1);
+n2 = size(Theta2,2);
+for i=1:n1
+    for j=2:n2
+        temp = temp + Theta2(i,j)*Theta2(i,j);
+    end
+end
+Jreg = temp;
 J = -J/m+lambda*Jreg/(2*m);    
 % -------------------------------------------------------------
 
