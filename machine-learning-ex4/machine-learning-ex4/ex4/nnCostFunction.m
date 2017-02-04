@@ -61,25 +61,46 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+K = size(y, 1);
+J = 0;
+% Input Layer 1: m x n - m nb of examples, n number of parameters
+a1 = X;
+% add bias 1 to a1. m x n + 1
+a1 = [ones(m, 1) a1];
+% Theta1 i,j - i destination node, j source node
+% size : 25 x n+1
+Z2 = a1*Theta1';
+% Layer 2
+a2 = sigmoid(Z2);
+% add bias
+a2 = [ones(m, 1) a2];
+% Theta2 i,j - i dest node, j source node.
+% size : 10 * 26
+Z3 = a2*Theta2';
+% Layer 3
+a3 = sigmoid(Z3);
+temp = Theta2; 
+temp(1) = 0;   % because we don't add anything for j = 0
+for i=1:m
+    Y = zeros(10,1);
+    k = y(i);
+    Y(k)=1;
+    hk = a3(i,:)';
+    tmp1 = Y.*log(hk);
+    tmp2 = (1-Y).*log(1-hk);
+    tmp = tmp1+tmp2;
+    J = J+sum(tmp);%  + lambda*(sum(temp.*temp))/(2*m);    
+end
+% Theta1: sum of squared elements
+Theta1sqr = Theta1.*Theta1;
+Theta1sqr = Theta1sqr(:);
+Jreg1 = sum(Theta1sqr);
+% Theta1: sum of squared elements
+Theta2sqr = Theta2.*Theta2;
+Theta2sqr = Theta2sqr(:);
+Jreg2 = sum(Theta2sqr);
+Jreg = Jreg1+Jreg2;
+J = -J/m+lambda*Jreg/(2*m);    
 % -------------------------------------------------------------
 
 % =========================================================================
