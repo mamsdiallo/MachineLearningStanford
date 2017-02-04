@@ -82,21 +82,26 @@ a3 = sigmoid(Z3);
 temp = Theta2; 
 temp(1) = 0;   % because we don't add anything for j = 0
 for i=1:m
-    Y = zeros(10,1);
+    Y = zeros(1,10);
     k = y(i);
     Y(k)=1;
-    hk = a3(i,:)';
-    tmp1 = Y.*log(hk);
-    tmp2 = (1-Y).*log(1-hk);
-    tmp = tmp1+tmp2;
-    J = J+sum(tmp);%  + lambda*(sum(temp.*temp))/(2*m);    
+    hk = a3(i,:);
+    tmp = 0;
+    for k=1:num_labels
+        tmp = tmp+Y(k)*log(hk(k))+(1-Y(k))*log(1-hk(k));
+    end
+    J = J+tmp;%sum(tmp);%  + lambda*(sum(temp.*temp))/(2*m);
 end
 % Theta1: sum of squared elements
-Theta1sqr = Theta1.*Theta1;
+temp = Theta1; 
+temp(1) = 0;   % because we don't add anything for j = 0
+Theta1sqr = temp.*temp;
 Theta1sqr = Theta1sqr(:);
 Jreg1 = sum(Theta1sqr);
 % Theta1: sum of squared elements
-Theta2sqr = Theta2.*Theta2;
+temp = Theta2; 
+temp(1) = 0;   % because we don't add anything for j = 0
+Theta2sqr = tmp.*tmp;
 Theta2sqr = Theta2sqr(:);
 Jreg2 = sum(Theta2sqr);
 Jreg = Jreg1+Jreg2;
