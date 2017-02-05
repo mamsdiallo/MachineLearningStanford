@@ -129,8 +129,16 @@ d2 = (v1.*v2)';
 % ?(l) = ?(l) + ?(l+1)(a(l))T
 Delta1 = (a1'*d2)';
 Delta2 = (a2'*d3)';
-Theta1_grad = Delta1/m;
-Theta2_grad = Delta2/m;
+% Correct with regularization
+n1 = size(Theta1,1);
+Temp1 = Theta1;
+Temp1(:,1) = zeros(n1,1);
+n2 = size(Theta2,1);
+Temp2 = Theta2;
+Temp2(:,1) = zeros(n2,1);
+Theta1_grad = Delta1/m+lambda*Temp1/m;
+Theta2_grad = Delta2/m+lambda*Temp2/m;
+% Correct with regularization
 % -------------------------------------------------------------
 
 % =========================================================================
