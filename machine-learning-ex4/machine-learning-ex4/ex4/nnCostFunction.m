@@ -1,4 +1,4 @@
-function [J grad] = nnCostFunction(nn_params, ...
+function [J, grad] = nnCostFunction(nn_params, ...
                                    input_layer_size, ...
                                    hidden_layer_size, ...
                                    num_labels, ...
@@ -79,10 +79,8 @@ a2 = [ones(m, 1) a2];
 Z3 = a2*Theta2';
 % Layer 3
 a3 = sigmoid(Z3);
-temp = Theta2; 
-temp(1) = 0;   % because we don't add anything for j = 0
 for i=1:m
-    Y = zeros(1,10);
+    Y = zeros(1,num_labels);
     k = y(i);
     Y(k)=1;
     hk = a3(i,:);
@@ -111,7 +109,28 @@ for i=1:n1
     end
 end
 Jreg = temp;
-J = -J/m+lambda*Jreg/(2*m);    
+J = -J/m+lambda*Jreg/(2*m); 
+dTwoij = 0;
+dOneij = 0;
+Y = zeros(m,num_labels);
+for i=1:m
+    % Layer 3:
+    % For each output unit k in layer 3
+    k = y(i);
+    Y(i,k)=1;
+end
+d3 = a3 -Y;
+sigG = sigmoidGradient(Z2);
+v1 = (Theta2'*d3');
+v2 = (sigmoidGradient(Z2))';
+v1 = v1(2:end,:);
+d2 = (v1.*v2)';
+% Compute Delta1
+% ?(l) = ?(l) + ?(l+1)(a(l))T
+Delta1 = (a1'*d2)';
+Delta2 = (a2'*d3)';
+Theta1_grad = Delta1/m;
+Theta2_grad = Delta2/m;
 % -------------------------------------------------------------
 
 % =========================================================================
