@@ -71,9 +71,9 @@ for i=1:m
     end
     temp = theta;
     temp(1) = 0;   % because we don't add anything for j = 0 
-    L = 0;
-    error_train(i) = err_tr/(2*i) + L*(sum(temp.*temp))/(2*i);
-    error_val(i) = err_val/(2*n) + L*(sum(temp.*temp))/(2*n);
+    L
+    error_train(i) = err_tr/(2*i) + lambda*(sum(temp.*temp))/(2*i);
+    error_val(i) = err_val/(2*n) + lambda*(sum(temp.*temp))/(2*n);
     % compute cross validation errors
 end
 
