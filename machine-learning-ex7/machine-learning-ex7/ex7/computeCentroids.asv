@@ -27,11 +27,8 @@ centroids = zeros(K, n);
 %
 
 for i = 1:K
-    Cardi = numel(find(idx==i));
-    if Cardi ~= 0
-        xi = X(find(idx==i),:);
-        centroids(i,:) = sum(xi)/Cardi;
-    end
+    if numel(
+    centroids(i) = numel(find(idx==i))/numel(A)
 end
 
 % =============================================================

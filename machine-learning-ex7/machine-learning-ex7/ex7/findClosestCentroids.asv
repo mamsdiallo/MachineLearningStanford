@@ -22,16 +22,12 @@ idx = zeros(size(X,1), 1);
 %
 m = size(X,1);
 for i = 1:m
-    v = X(i,:) - centroids(1,:);
-    mini = norm(v);
-    idx(i) = 1;
+    mini = norm(X(i) - centroids(1));
+    ci = 1;
     for j = 1:K
-        v = X(i,:) - centroids(j,:);
+        v = X(i) - centroids(j);
         normv = norm(v);
-        if normv < mini
-            idx(i) = j;
-            mini = normv;
-        end
+        if norm
     end
 end
 
